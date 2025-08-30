@@ -1,0 +1,12 @@
+### Under section "Ordering the frequency tables in descending order"
+
+def display_sorted_table(dictionary):
+    dictionary_as_tuples = [] # list of tuples
+
+    for key in dictionary:
+        tuple_pair = (dictionary[key], key)
+        dictionary_as_tuples.append(tuple_pair)
+    sorted_dictionary_as_tuples = sorted(dictionary_as_tuples, reverse=True)
+    
+    for pair in sorted_dictionary_as_tuples:
+        print(pair[1], ":", pair[0]) # print key : value

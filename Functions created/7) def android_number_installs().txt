@@ -1,0 +1,41 @@
+### Under section "Popular Google Play apps using the number of installs"
+
+def android_number_installs(sum_installs=False, avg_installs=False, 
+                           filter1B=False, filter500M=False):
+    
+    android_number_installs_category = {}
+
+    for category in android_category:
+        sum_installs_category = 0
+        sum_apps_category = 0 # number of apps 
+            
+        for app in android_english_free:
+            category_app = app[1] # Category
+            installs = app[5] # Installs
+            installs = installs.replace("+", "")
+            installs = installs.replace(",", "")
+            installs = int(installs)
+            
+            if category_app != category:
+                continue
+            if installs == 0:
+                continue # excluding apps with 0 installs
+
+            if filter1B and not filter500M and installs >= 1000000000:
+                continue # skip this app, it's too popular
+            elif filter500M and installs >= 500000000:
+                continue # skip this app, also too popular
+                
+            sum_installs_category += installs
+            sum_apps_category += 1
+
+        if avg_installs and not sum_installs:
+            avg_n_installs = round(sum_installs_category / sum_apps_category)
+            android_number_installs_category[category] = avg_n_installs
+            
+        elif sum_installs and not avg_installs:
+            android_number_installs_category[category] = sum_installs_category
+    
+    return display_sorted_table(android_number_installs_category)
+
+android_number_installs(avg_installs=True)

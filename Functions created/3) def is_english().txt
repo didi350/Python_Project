@@ -1,0 +1,35 @@
+### Under section "Filtering out non-English apps"
+
+## First version (with minimum 1 character)
+
+def is_english(string):
+    
+    for character in string:
+        if ord(character) > 127:
+            return False
+    
+    return True
+
+print(is_english('Instagram'))
+print(is_english('爱奇艺PPS -《欢乐颂2》电视剧热播'))
+print(is_english('Docs To Go™ Free Office Suite'))
+print(is_english('Instachat 😜'))
+
+
+## Second version (with minimum 3 characters)
+
+def is_english(string):
+    non_ascii = 0
+    
+    for character in string:
+        if ord(character) > 127:
+            non_ascii += 1
+    
+    if non_ascii > 3:
+        return False
+    else:
+        return True
+
+print(is_english("爱奇艺PPS -《欢乐颂2》电视剧热播"))
+print(is_english("Docs To Go™ Free Office Suite"))
+print(is_english("Instachat 😜"))

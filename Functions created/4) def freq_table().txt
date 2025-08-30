@@ -1,0 +1,31 @@
+### Under section "Creating frequency tables"
+
+def freq_table(dataset, index, percentages=True, rounded=True): 
+    dictionary_count = {}
+    dictionary_percentage = {}
+    
+    for app in dataset:
+        field = app[index]
+        if field in dictionary_count:
+            dictionary_count[field] += 1
+        else:
+            dictionary_count[field] = 1
+
+    for field in dictionary_count:
+        dictionary_percentage[field] = (dictionary_count[field] / len(dataset)) * 100
+        if rounded == True:
+            dictionary_percentage[field] = round(dictionary_percentage[field], 2)
+    
+    if percentages == True:
+        return dictionary_percentage
+    else:
+        return dictionary_count
+
+ios_prime_genres = freq_table(ios_english_free, 11)
+print("iOS prime genres: ")
+print(ios_prime_genres)
+print("\n")
+
+android_category = freq_table(android_english_free, 1)
+print("Google Play categories: ")
+print(android_category)

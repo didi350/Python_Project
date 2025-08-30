@@ -1,0 +1,59 @@
+### Under section "Popular iOS apps using the number of reviews"
+
+# The dataset argument should be either ios_prime_genres or android_category
+
+def avg_number_reviews(dataset, sum_reviews=False, avg_reviews=False, 
+                       threshold=None): # filter200K=False, filter100K=False
+    
+    avg_number_reviews_genre = {}
+    dataset2 = None
+    genre_dataset = None
+    number_reviews_dataset = None
+    
+    if dataset == ios_prime_genres:
+        dataset2 = ios_english_free
+        genre_dataset = 11 # prime_genre
+        number_reviews_dataset = 5 # rating_count_tot
+        
+    elif dataset == android_category:
+        dataset2 = android_english_free
+        genre_dataset = 1 # Category
+        number_reviews_dataset = 3 # Reviews
+    
+    for genre in dataset:
+        sum_number_reviews = 0
+        sum_apps = 0 # number of apps
+
+        for app in dataset2:
+            genre_app = app[genre_dataset]
+            number_reviews = int(app[number_reviews_dataset])
+            
+            if genre_app != genre:
+                continue
+            if number_reviews == 0:
+                continue # excluding apps with 0 reviews
+
+            if threshold is not None and number_reviews >= threshold:
+                continue # skip this app, it's too popular
+            
+            ### code for using filter200K=False, filter100K=False parameters:
+            """
+            if filter200K and not filter100K and number_reviews >= 200000:
+                continue # skip this app, it's too popular
+            elif filter100K and number_reviews >= 100000:
+                continue # skip this app, also too popular
+            """
+                
+            sum_number_reviews += number_reviews
+            sum_apps += 1
+
+        if avg_reviews and not sum_reviews:
+            avg_num_reviews = round(sum_number_reviews / sum_apps)
+            avg_number_reviews_genre[genre] = avg_num_reviews
+        
+        elif sum_reviews and not avg_reviews:
+            avg_number_reviews_genre[genre] = sum_number_reviews
+    
+    return display_sorted_table(avg_number_reviews_genre)
+
+avg_number_reviews(dataset=ios_prime_genres, avg_reviews=True)

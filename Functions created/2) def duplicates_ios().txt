@@ -1,0 +1,24 @@
+### Under section "Removing duplicate entries for iOS App Store"
+
+# please remember not to run this code of block more than once
+# otherwise the indexes will get appended multiple times
+
+ios_duplicate_rows = []
+ios_duplicate_rows.append(ios_header) # add the header row
+ios_duplicate_rows[0].append("index") # add an index column to the header
+
+def duplicates_ios(app_name):
+    for app in ios_apps_list:
+        name = app[1] # the second column in the row
+        if name == app_name:
+            index = ios_apps_list.index(app)
+            app.append(index)
+            ios_duplicate_rows.append(app)
+            print(app)
+
+print(ios_duplicate_rows[0]) # same as print(ios_header), plus the index
+print("\n")
+            
+duplicates_ios("Mannequin Challenge")
+print("\n")
+duplicates_ios("VR Roller Coaster")
